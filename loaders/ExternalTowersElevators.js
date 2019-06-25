@@ -103,6 +103,61 @@
     var elevatorDoorLeaf1Url = tradeCenterGeometriesFolder + "elevator-doorleaf1.js";   //  materials: [1].
     var elevatorDoorLeaf2Url = tradeCenterGeometriesFolder + "elevator-doorleaf2.js";   //  materials: [1].
 
+    await fetch(elevatorDoorFrameUrl)
+    .then(function(response){
+        return response.json();
+    }).then(function(json){
+        return loadElevatorAsset( json );
+    }).then( function( mesh ){
+        var img = new Image();
+        img.crossOrigin = "anonymous";
+        $(img).on("load", function(){
+            var texture = new THREE.Texture( img );
+            mesh.material.materials[1] = new THREE.MeshStandardMaterial({ 
+                color: 0xffffff, 
+                map: texture,
+                bumpMap: texture,
+                bumpScale: -0.03,
+                shading: THREE.SmoothShading,
+            });
+            mesh.material.materials[1].map.needsUpdate = true;
+            mesh.material.materials[1].bumpMap.needsUpdate = true;
+            $(this).remove();
+        });
+        img.src = tradeCenterGeometriesFolder + "elevator-door.jpg";
+        return mesh;
+    }).then( function( mesh ){
+        var img = new Image();
+        img.crossOrigin = "anonymous";
+        $(img).on("load", function(){
+            var texture = new THREE.Texture( img );
+            mesh.material.materials[2] = new THREE.MeshStandardMaterial({ 
+                color: 0xffffff, 
+                map: texture,
+                shading: THREE.SmoothShading,
+            });
+            mesh.material.materials[2].map.needsUpdate = true;
+            $(this).remove();
+        });
+        img.src = tradeCenterGeometriesFolder + "elevator-door.jpg";
+        return mesh;
+    }).then( function( mesh ){
+        mesh.name = "elevator frame";
+        mesh.position.set( -30, 0, -160); 
+        mesh.rotation.y = THREE.Math.degToRad( 90 );
+        for ( var i=0; i < mesh.material.materials.length; i++) {
+            mesh.material.materials.side = 2;
+        }
+        scene.add( mesh );
+        TradeCenterAssets["elevator_frame"] = mesh;
+        return mesh;
+    }).then( function( mesh ){
+        var mesh = mesh.clone();
+        mesh.position.set( -30, 0, 160);
+        mesh.rotation.y = THREE.Math.degToRad( -90 );
+        scene.add( mesh );
+        return mesh;
+    });
 
 
 
