@@ -1,10 +1,10 @@
 //  WelcomeCenter.js
 
-(async function(){
+var TradeCenterAssets = {};
+var matcapsFolder = "/tradecenter/matcaps/";
+var tradeCenterGeometriesFolder = "/tradecenter/geometries/";
 
-    var TradeCenterAssets = {};
-    var matcapsFolder = "/tradecenter/matcaps/";
-    var tradeCenterGeometriesFolder = "/tradecenter/geometries/";
+(async function(){
 
     var s = 1;  //  scale.
     var WelcomeCenter = new THREE.Group();
