@@ -25,7 +25,9 @@
         mesh.name = "welcome center structure";
         var img = new Image();
         img.crossOrigin = "anonymous";
-        $(img).on("load", matcapMaterial);
+        $(img).on("load", function(){
+            matcapMaterial(img, 0);
+        });
         img.src = matcapsFolder + "env7.jpg";
         return mesh;
     });
@@ -39,7 +41,9 @@
         mesh.name = "welcome center windows";
         var img = new Image();
         img.crossOrigin = "anonymous";
-        $(img).on("load", matcapMaterial);
+        $(img).on("load", function(){
+            matcapMaterial(img, 1);
+        });
         img.src = matcapsFolder + "ChromeReflect.jpg";
         return mesh;
     });
@@ -72,10 +76,10 @@
         return TradeCenterAssets[ name ];
     }
 
-    function matcapMaterial(){
+    function matcapMaterial(img, index){
         var normal = new THREE.Texture( normalPixel() );
         var matcap = new THREE.Texture( img );
-        mesh.material.materials[1] =  new ShaderMaterial( normal, matcap );
+        mesh.material.materials[index] =  new ShaderMaterial( normal, matcap );
         debugMode && console.log( "materials:", mesh.material.materials );
         $(this).remove();
     }
