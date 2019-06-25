@@ -12,7 +12,6 @@
     TradeCenterMain.scale.set(s,s,s);
     TradeCenterMain.position.y = 0.7;
     TradeCenterAssets["TradeCenterMain"] = TradeCenterMain;
-    scene.add( TradeCenterMain );
 
     var urlTradeCenterMainBuilding    = tradeCenterGeometriesFolder + "trade_center_main_building.js";           //  materials: [1].
     var urlTradeCenterWindowStructure = tradeCenterGeometriesFolder + "trade_center_main_window_structure.js";   //  materials: [1].
@@ -65,6 +64,8 @@
         img.src = matcapsFolder + "ANGMAP11.jpg";
         return mesh;
     });
+
+    scene.add( TradeCenterMain );
 
     function loadTradeCenterMainAsset( json ){
 
