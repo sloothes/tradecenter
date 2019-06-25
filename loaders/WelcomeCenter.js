@@ -26,7 +26,7 @@
         var img = new Image();
         img.crossOrigin = "anonymous";
         $(img).on("load", function(){
-            matcapMaterial(img, 0);
+            matcapMaterial(mesh, img, 0);
         });
         img.src = matcapsFolder + "env7.jpg";
         return mesh;
@@ -42,7 +42,7 @@
         var img = new Image();
         img.crossOrigin = "anonymous";
         $(img).on("load", function(){
-            matcapMaterial(img, 1);
+            matcapMaterial(mesh, img, 1);
         });
         img.src = matcapsFolder + "ChromeReflect.jpg";
         return mesh;
@@ -76,7 +76,7 @@
         return TradeCenterAssets[ name ];
     }
 
-    function matcapMaterial(img, index){
+    function matcapMaterial(mesh, img, index){
         var normal = new THREE.Texture( normalPixel() );
         var matcap = new THREE.Texture( img );
         mesh.material.materials[index] =  new ShaderMaterial( normal, matcap );
