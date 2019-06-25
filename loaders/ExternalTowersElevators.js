@@ -300,7 +300,7 @@
 
         return mesh;
 
-    }).then( function( mesh ){
+    }).then( async function( mesh ){
 
         var mesh = mesh.clone();
         mesh.position.set( -30, 0, 175);
