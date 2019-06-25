@@ -159,23 +159,209 @@
         return mesh;
     });
 
+    //  Elevator cambine.
 
+    await fetch(elevatorCabineUrl)
+    .then(function(response){
+        return response.json();
+    }).then(function(json){
+        return loadElevatorAsset( json );
+    }).then( function( mesh ){
+        var geometry = new THREE.BoxGeometry(30,53,30, 1,1,1);
+        var material = new THREE.MeshStandardMaterial({transparent:true, opacity:0.5, side:1});
+        var box = new THREE.Mesh(geometry, material);
+        box.position.set(-30, 26.5, -175);
+        scene.add( box );
+        var box = box.clone();
+        box.position.set(-30, 26.5, 175);
+        scene.add( box );
+        return mesh;
+    }).then( function( mesh ){
+    //  Camera rigid objects.
+        var geometry = new THREE.BoxGeometry(120,350,30, 1,1,1);
+        var material = new THREE.MeshLambertMaterial({visible:false});
+        box = new THREE.Mesh(geometry, material);
+        box.position.set(-30, 230, -120);
+        scene.add(box);
+        cameraControls.rigidObjects.push( box );
+        var box = box.clone();
+        box.position.set(-30, 230, 120);
+        scene.add(box);
+        cameraControls.rigidObjects.push( box );
+        return mesh;
+    }).then( function( mesh ){
+        var img = new Image();
+        img.crossOrigin = "anonymous";
+        $(img).on("load", function(){
+            var normal = new THREE.Texture( normalPixel() );
+            var matcap = new THREE.Texture( img );
+            mesh.material.materials[0] = new ShaderMaterial( normal, matcap );
+            $(this).remove();
+        });
+        img.src = matcapsFolder + "ChromeReflect.jpg";
+        return mesh;
+    }).then( function( mesh ){
+        var img = new Image();
+        img.crossOrigin = "anonymous";
+        $(img).on("load", function(){
+            var normal = new THREE.Texture( normalPixel() );
+            var matcap = new THREE.Texture( img );
+            mesh.material.materials[3] = new ShaderMaterial( normal, matcap );
+            mesh.material.materials[5] = new ShaderMaterial( normal, matcap );
+            $(this).remove();
+        });
+        img.src = matcapsFolder + "silver_tinman.png";
+        return mesh;
+    }).then( function( mesh ){
+        var img = new Image();
+        img.crossOrigin = "anonymous";
+        $(img).on("load", function(){
+            var texture = new THREE.Texture( img );
+            mesh.material.materials[1] = new THREE.MeshStandardMaterial({ 
+                color: 0xffffff, 
+                map: texture,
+                bumpMap: texture,
+                bumpScale: -0.03,
+                shading: THREE.SmoothShading,
+            });
+            mesh.material.materials[1].map.needsUpdate = true;
+            mesh.material.materials[1].bumpMap.needsUpdate = true;
+            $(this).remove();
+        });
+        img.src = tradeCenterGeometriesFolder + "elevator.jpg";
+        return mesh;
 
+    }).then( async function( mesh ){
 
+        mesh.name = "elevator cabine";
+        mesh.position.set( -30, 0, -175);
+        mesh.rotation.y = THREE.Math.degToRad( 90 );
+        cameraControls.rigidObjects.push( mesh );
+        TradeCenterAssets["left_cabine"] = mesh;
+        scene.add( mesh );
 
+        await fetch(elevatorOctreeUrl)
+        .then(function(response){
+            return response.json();
+        }).then(function(json){
+            return loadElevatorAsset( json );
+        }).then( function( elevator ){
 
+            elevator.name = "left elevator";
+            var elevuuid = elevator.geometry.uuid;
+            elevator.position.copy( mesh.position );
+            octree.importThreeMesh( elevator );
+            ElevatorAssets["elevator_left"] = elevator;
+            var animator = new THREE.Object3D();
+            animator.position.copy( mesh.position );
+            var animation = new THREE.Animation( animator, elevatorData );
+            animation.timeScale = timeScale;
+            animation.play(animation.data.length * 0.75);
+            var updatesSelector = "#updates";
+            var elevatorSelector = "#elevator-left";
+            var elevatorUpdater = $(`<input type="hidden" id="elevator-left">`).get(0);
+            $("#updates").append(elevatorUpdater);
 
+            elevatorUpdater.update = () => {
+                var contactInfo = localPlayer.controller.contactInfo;
+                function contactInfoFind( item ){ return item.face.meshID == elevuuid; }
+                function contactInfoFilter( item ){ return item.face.meshID == elevuuid; }
+                if ( contactInfo.length == 0 || !!contactInfo.find(contactInfoFilter) ) {
+                    animation.timeScale = timeScale;
+                } else {
+                    animation.timeScale = 4 * timeScale;
+                }
+                if (animator.position.y < 50) mesh.rotation.y = THREE.Math.degToRad( 90 );
+                if (animator.position.y > 50) mesh.rotation.y = THREE.Math.degToRad( -90 );
+            //  Update elevator.
+                mesh.position.y = animator.position.y;
+                elevator.position.y = animator.position.y + elevatAdjust;
+            //  Update octree.
+                octree.removeThreeMesh( elevuuid );
+                octree.importThreeMesh( elevator );
+            };
 
+            $(elevatorSelector).addClass("update");
+            $updates = $("input[type=hidden].update");
 
+            elevator.start = () => {
+                animation.timeScale = timeScale;
+                $(elevatorSelector).addClass("update");
+                $updates = $("input[type=hidden].update");
+            };
 
+            elevator.stop = () => {
+                animation.timeScale = 0;
+                $(elevatorSelector).removeClass("update");
+                $updates = $("input[type=hidden].update");
+            };
 
+        });
 
+        return mesh;
 
+    }).then( function( mesh ){
 
+        var mesh = mesh.clone();
+        mesh.position.set( -30, 0, 175);
+        mesh.rotation.y = THREE.Math.degToRad( -90 );
+        cameraControls.rigidObjects.push( mesh );
+        TradeCenterAssets["right_cabine"] = mesh;
+        scene.add( mesh );
 
+        await fetch(elevatorOctreeUrl)
+        .then(function(response){
+            return response.json();
+        }).then(function(json){
+            return loadElevatorAsset( json );
+        }).then( function( elevator ){
 
+            elevator.name = "right elevator";
+            var elevuuid = elevator.geometry.uuid;
+            elevator.position.copy( mesh.position );
+            octree.importThreeMesh( elevator );
+            ElevatorAssets["elevator_right"] = elevator;
+            var animator = new THREE.Object3D();
+            animator.position.copy( mesh.position );
+            var animation = new THREE.Animation( animator, elevatorData );
+            animation.timeScale = timeScale;
+            animation.play(animation.data.length * 0.75);
+            var updatesSelector = "#updates";
+            var elevatorSelector = "#elevator-right";
+            var elevatorUpdater = $(`<input type="hidden" id="elevator-right">`).get(0);
+            $("#updates").append(elevatorUpdater);
 
+            elevatorUpdater.update = () => {
+                if (animator.position.y < 50) mesh.rotation.y = THREE.Math.degToRad( -90 );
+                if (animator.position.y > 50) mesh.rotation.y = THREE.Math.degToRad( 90 );
+            //  Update elevator.
+                mesh.position.y = animator.position.y;
+                elevator.position.y = animator.position.y + elevatAdjust;
+            //  Update octree.
+                octree.removeThreeMesh( elevuuid );
+                octree.importThreeMesh( elevator );
+            };
 
+            $(elevatorSelector).addClass("update");
+            $updates = $("input[type=hidden].update");
+
+            elevator.start = () => {
+                animation.timeScale = timeScale;
+                $(elevatorSelector).addClass("update");
+                $updates = $("input[type=hidden].update");
+            };
+
+            elevator.stop = () => {
+                animation.timeScale = 0;
+                $(elevatorSelector).removeClass("update");
+                $updates = $("input[type=hidden].update");
+            };
+
+        });
+
+        return mesh;
+
+    });
 
     function loadElevatorAsset( json ){
 
