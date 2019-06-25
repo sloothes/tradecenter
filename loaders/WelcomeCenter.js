@@ -12,6 +12,7 @@ var tradeCenterGeometriesFolder = "/tradecenter/geometries/";
     WelcomeCenter.scale.set(s,s,s);
     WelcomeCenter.position.y = 0.7;
     TradeCenterAssets["WelcomeCenter"] = WelcomeCenter;
+    scene.add( WelcomeCenter );
 
     var urlWelcomeCenterBuilding = tradeCenterGeometriesFolder + "welcome_center_building.js";  //  materials: [1].
     var urlWelcomeCenterWindows  = tradeCenterGeometriesFolder + "welcome_center_windows.js";   //  materials: [2].
@@ -48,7 +49,6 @@ var tradeCenterGeometriesFolder = "/tradecenter/geometries/";
         return mesh;
     });
 
-    scene.add( WelcomeCenter );
 
     function loadWelcomeCenterAsset( json ){
 
