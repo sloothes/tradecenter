@@ -22,7 +22,7 @@
     .then(function(response){
         return response.json();
     }).then(function(json){
-        return loadWelcomeCenterAsset( json );
+        return loadTradeCenterMainAsset( json );
     }).then( function( mesh ){
         mesh.name = "trade center main structure";
         var img = new Image();
@@ -38,9 +38,9 @@
     .then(function(response){
         return response.json();
     }).then(function(json){
-        return loadWelcomeCenterAsset( json );
+        return loadTradeCenterMainAsset( json );
     }).then( function( mesh ){
-        mesh.name = "trade center main windows";
+        mesh.name = "trade center window structure";
         var img = new Image();
         img.crossOrigin = "anonymous";
         $(img).on("load", function(){
@@ -54,7 +54,7 @@
     .then(function(response){
         return response.json();
     }).then(function(json){
-        return loadWelcomeCenterAsset( json );
+        return loadTradeCenterMainAsset( json );
     }).then( function( mesh ){
         mesh.name = "trade center main windows";
         var img = new Image();
