@@ -79,7 +79,7 @@
     function matcapMaterial(mesh, img, index){
         var normal = new THREE.Texture( normalPixel() );
         var matcap = new THREE.Texture( img );
-        mesh.material.materials[index] =  new ShaderMaterial( normal, matcap );
+        mesh.material.materials[index] =  ShaderMaterial( normal, matcap );
         debugMode && console.log( "materials:", mesh.material.materials );
         $(this).remove();
     }
