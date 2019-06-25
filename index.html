@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <meta name="description" contents="Slutty Ladies Observing Outgoing Trying Have Expressive Sex">
+    <meta name="description" contents="Welcome to trade center elevators">
 
     <title>trade center (scc-v0.4.5)</title>
 
@@ -134,15 +134,19 @@
 <script>
 
 //  Settings.
+
     ground.visible = false;
     groundHelper.visible = false;
     axisCustomHelper.visible = false;
     axisOriginHelper.visible = false;
     cameraControls.offset.y = 20;
     cameraControls.setLatLon(-23, 270);
-    cameraControls.radius = cameraControls.minRadius;
-    cameraControls.maxRadius = cameraControls.minRadius;
     localPlayer.controller.center.x = -380;
+
+    if ( isMobile ) {
+        cameraControls.radius = cameraControls.minRadius;
+        cameraControls.maxRadius = cameraControls.minRadius;
+    }
 
 </script>
 
