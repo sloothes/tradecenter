@@ -72,8 +72,8 @@ var tradeCenterGeometriesFolder = "/tradecenter/geometries/";
 
         TradeCenterAssets[ name ] = mesh;
         WelcomeCenter.add( TradeCenterAssets[ name ] );
-
         return TradeCenterAssets[ name ];
+
     }
 
     function matcapMaterial(mesh, img, index){
