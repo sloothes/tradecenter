@@ -169,10 +169,10 @@ var ElevatorAssets = {};
                 var canvas = makePowerOfTwo( img, true );
                 var texture = new THREE.Texture( canvas );
                 mesh.material.materials[1] = new THREE.MeshStandardMaterial({ 
-                    color: 0xffffff, 
-                    map: texture,
+                    emissive: 0xffffff, 
+                    emissiveMap: texture,
                     bumpMap: texture,
-                    bumpScale: -0.03,
+                    bumpScale: -0.05,
                     shading: THREE.SmoothShading,
                 });
                 mesh.material.materials[1].map.needsUpdate = true;
@@ -498,10 +498,10 @@ var ElevatorAssets = {};
                 var canvas = makePowerOfTwo( img, true );
                 var texture = new THREE.Texture( canvas );
                 mesh.material.materials[1] = new THREE.MeshStandardMaterial({ 
-                    color: 0xffffff, 
-                    map: texture,
+                    emissive: 0xffffff, 
+                    emissiveMap: texture,
                     bumpMap: texture,
-                    bumpScale: -0.03,
+                    bumpScale: -0.05,
                     shading: THREE.SmoothShading,
                 });
                 mesh.material.materials[1].map.needsUpdate = true;
