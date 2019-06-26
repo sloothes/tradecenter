@@ -20,60 +20,308 @@
     var urlLeftSideTowerDome     = tradeCenterGeometriesFolder + "external_left_tower_dome.js";       //  materials: [1].
     var urlLeftSideTowerWindows  = tradeCenterGeometriesFolder + "external_left_tower_windows.js";    //  materials: [2].
 
-    await fetch(urlLeftSideTowerBuilding)
-    .then(function(response){
+    await caches.match( urlLeftSideTowerBuilding ).then(function(response){
+
+        if ( !response ) 
+            throw response;
+        else
+            return response;
+
+    }).catch(function(err){
+
+        return fetch( urlLeftSideTowerBuilding );
+
+    }).then(async function(response){
+
+        var cache = await caches.open("geometries")
+            .then(function(cache){ return cache; });
+
+    //  Clone is needed because put() consumes the response body.
+    //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
+
+        var clone = response.clone();
+        await cache.put( urlLeftSideTowerBuilding, clone );
         return response.json();
+
     }).then(function(json){
+
         return loadLeftSideTowerAsset( json );
+
     }).then( function( mesh ){
         mesh.name = "side tower structure";
-        var img = new Image();
-        img.crossOrigin = "anonymous";
-        $(img).on("load", function(){
-            matcapMaterial(mesh, img, 0);
+
+        var url = matcapsFolder + "env7.jpg";
+        caches.match( url ).then(function(response){
+
+            if ( !response ) 
+                throw response;
+            else
+                return response;
+
+        }).catch(function(err){
+
+        //  We use cors origin mode to avoid
+        //  texture tainted canvases, images.
+            return fetch( url, {
+                mode: "cors",
+                method: "GET",
+            });
+
+        }).then(async function(response){
+
+            var cache = await caches.open("textures")
+                .then(function(cache){ return cache; });
+
+        //  Clone is needed because put() consumes the response body.
+        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
+
+            var clone = response.clone();
+            await cache.put( url, clone );
+            return response.blob();
+
+        }).then(function(blob){
+
+            var img = new Image();
+            img.crossOrigin = "anonymous";
+
+            $(img).on("load", function(){
+                matcapMaterial(mesh, img, 0);
+            });
+
+        //  Get dataURL from blob.
+
+            var reader = new FileReader();
+            reader.onload = function() {
+                img.src = reader.result;
+            };
+
+            reader.readAsDataURL(blob);
+
         });
-        img.src = matcapsFolder + "env7.jpg";
-        return mesh;
+
+    //  return mesh;
+
     });
 
-    await fetch(urlLeftSideTowerDome)
-    .then(function(response){
+
+    await caches.match( urlLeftSideTowerDome ).then(function(response){
+
+        if ( !response ) 
+            throw response;
+        else
+            return response;
+
+    }).catch(function(err){
+
+        return fetch( urlLeftSideTowerDome );
+
+    }).then(async function(response){
+
+        var cache = await caches.open("geometries")
+            .then(function(cache){ return cache; });
+
+    //  Clone is needed because put() consumes the response body.
+    //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
+
+        var clone = response.clone();
+        await cache.put( urlLeftSideTowerDome, clone );
         return response.json();
+
     }).then(function(json){
+
         return loadLeftSideTowerAsset( json );
+
     }).then( function( mesh ){
         mesh.name = "side tower dome";
-        var img = new Image();
-        img.crossOrigin = "anonymous";
-        $(img).on("load", function(){
-            matcapMaterial(mesh, img, 0);
+
+        var url = matcapsFolder + "ChromeReflect.jpg";
+        caches.match( url ).then(function(response){
+
+            if ( !response ) 
+                throw response;
+            else
+                return response;
+
+        }).catch(function(err){
+
+        //  We use cors origin mode to avoid
+        //  texture tainted canvases, images.
+            return fetch( url, {
+                mode: "cors",
+                method: "GET",
+            });
+
+        }).then(async function(response){
+
+            var cache = await caches.open("textures")
+                .then(function(cache){ return cache; });
+
+        //  Clone is needed because put() consumes the response body.
+        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
+
+            var clone = response.clone();
+            await cache.put( url, clone );
+            return response.blob();
+
+        }).then(function(blob){
+
+            var img = new Image();
+            img.crossOrigin = "anonymous";
+
+            $(img).on("load", function(){
+                matcapMaterial(mesh, img, 0);
+            });
+
+        //  Get dataURL from blob.
+
+            var reader = new FileReader();
+            reader.onload = function() {
+                img.src = reader.result;
+            };
+
+            reader.readAsDataURL(blob);
+
         });
-        img.src = matcapsFolder + "ChromeReflect.jpg";
-        return mesh;
+
+    //  return mesh;
+
     });
 
-    await fetch(urlLeftSideTowerWindows)
-    .then(function(response){
+
+    await caches.match( urlLeftSideTowerWindows ).then(function(response){
+
+        if ( !response ) 
+            throw response;
+        else
+            return response;
+
+    }).catch(function(err){
+
+        return fetch( urlLeftSideTowerWindows );
+
+    }).then(async function(response){
+
+        var cache = await caches.open("geometries")
+            .then(function(cache){ return cache; });
+
+    //  Clone is needed because put() consumes the response body.
+    //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
+
+        var clone = response.clone();
+        await cache.put( urlLeftSideTowerWindows, clone );
         return response.json();
+
     }).then(function(json){
+
         return loadLeftSideTowerAsset( json );
+
     }).then( function( mesh ){
         mesh.name = "side tower windows";
-        var img = new Image();
-        img.crossOrigin = "anonymous";
-        $(img).on("load", function(){
-            matcapMaterial(mesh, img, 0);
+
+        var url = matcapsFolder + "ANGMAP11.jpg";
+        caches.match( url ).then(function(response){
+
+            if ( !response ) 
+                throw response;
+            else
+                return response;
+
+        }).catch(function(err){
+
+        //  We use cors origin mode to avoid
+        //  texture tainted canvases, images.
+            return fetch( url, {
+                mode: "cors",
+                method: "GET",
+            });
+
+        }).then(async function(response){
+
+            var cache = await caches.open("textures")
+                .then(function(cache){ return cache; });
+
+        //  Clone is needed because put() consumes the response body.
+        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
+
+            var clone = response.clone();
+            await cache.put( url, clone );
+            return response.blob();
+
+        }).then(function(blob){
+
+            var img = new Image();
+            img.crossOrigin = "anonymous";
+
+            $(img).on("load", function(){
+                matcapMaterial(mesh, img, 0);
+            });
+
+        //  Get dataURL from blob.
+
+            var reader = new FileReader();
+            reader.onload = function() {
+                img.src = reader.result;
+            };
+
+            reader.readAsDataURL(blob);
+
         });
-        img.src = matcapsFolder + "ANGMAP11.jpg";
+
         return mesh;
+
     }).then( function( mesh ){
-        var img = new Image();
-        img.crossOrigin = "anonymous";
-        $(img).on("load", function(){
-            matcapMaterial(mesh, img, 1);
+
+        var url = matcapsFolder + "ChromeReflect.jpg";
+        caches.match( url ).then(function(response){
+
+            if ( !response ) 
+                throw response;
+            else
+                return response;
+
+        }).catch(function(err){
+
+        //  We use cors origin mode to avoid
+        //  texture tainted canvases, images.
+            return fetch( url, {
+                mode: "cors",
+                method: "GET",
+            });
+
+        }).then(async function(response){
+
+            var cache = await caches.open("textures")
+                .then(function(cache){ return cache; });
+
+        //  Clone is needed because put() consumes the response body.
+        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
+
+            var clone = response.clone();
+            await cache.put( url, clone );
+            return response.blob();
+
+        }).then(function(blob){
+
+            var img = new Image();
+            img.crossOrigin = "anonymous";
+
+            $(img).on("load", function(){
+                matcapMaterial(mesh, img, 1);
+            });
+
+        //  Get dataURL from blob.
+
+            var reader = new FileReader();
+            reader.onload = function() {
+                img.src = reader.result;
+            };
+
+            reader.readAsDataURL(blob);
+
         });
-        img.src = matcapsFolder + "ChromeReflect.jpg";
-        return mesh;
+
+    //  return mesh;
+
     });
 
 //  RIGHT SIDE TOWER.
@@ -115,10 +363,11 @@
 
     function matcapMaterial(mesh, img, index){
         var normal = new THREE.Texture( normalPixel() );
-        var matcap = new THREE.Texture( img );
+        var canvas = makePowerOfTwo( img, true );
+        var matcap = new THREE.Texture( canvas );
         mesh.material.materials[index] =  ShaderMaterial( normal, matcap );
         debugMode && console.log( "materials:", mesh.material.materials );
-        $(this).remove();
+        $(img).remove();
     }
 
 })();
