@@ -175,7 +175,7 @@ var ElevatorAssets = {};
                     bumpScale: -0.05,
                     shading: THREE.SmoothShading,
                 });
-                mesh.material.materials[1].map.needsUpdate = true;
+                mesh.material.materials[1].emissiveMap.needsUpdate = true;
                 mesh.material.materials[1].bumpMap.needsUpdate = true;
                 $(img).remove();
             });
@@ -383,7 +383,7 @@ var ElevatorAssets = {};
                 var normal = new THREE.Texture( normalPixel() );
                 var canvas = makePowerOfTwo( img, true );
                 var matcap = new THREE.Texture( canvas );
-                mesh.material.materials[0] = new ShaderMaterial( normal, matcap );
+                mesh.material.materials[0] = ShaderMaterial( normal, matcap );
                 $(img).remove();
             });
 
@@ -440,8 +440,8 @@ var ElevatorAssets = {};
                 var normal = new THREE.Texture( normalPixel() );
                 var canvas = makePowerOfTwo( img, true );
                 var matcap = new THREE.Texture( canvas );
-                mesh.material.materials[3] = new ShaderMaterial( normal, matcap );
-                mesh.material.materials[5] = new ShaderMaterial( normal, matcap );
+                mesh.material.materials[3] = ShaderMaterial( normal, matcap );
+                mesh.material.materials[5] = ShaderMaterial( normal, matcap );
                 $(img).remove();
             });
 
@@ -504,7 +504,7 @@ var ElevatorAssets = {};
                     bumpScale: -0.05,
                     shading: THREE.SmoothShading,
                 });
-                mesh.material.materials[1].map.needsUpdate = true;
+                mesh.material.materials[1].emissiveMap.needsUpdate = true;
                 mesh.material.materials[1].bumpMap.needsUpdate = true;
                 $(img).remove();
             });
