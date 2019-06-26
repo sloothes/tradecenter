@@ -366,7 +366,6 @@
         var canvas = makePowerOfTwo( img, true );
         var matcap = new THREE.Texture( canvas );
         mesh.material.materials[index] =  ShaderMaterial( normal, matcap );
-        debugMode && console.log( "materials:", mesh.material.materials );
         $(img).remove();
     }
 
