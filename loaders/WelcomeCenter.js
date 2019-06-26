@@ -1,4 +1,4 @@
-//  WelcomeCenter.js
+//  WelcomeCenter.js (cache first)
 
 var TradeCenterAssets = {};
 var matcapsFolder = "/tradecenter/matcaps/";
