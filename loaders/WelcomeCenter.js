@@ -14,8 +14,8 @@ var tradeCenterGeometriesFolder = "/tradecenter/geometries/";
     TradeCenterAssets["WelcomeCenter"] = WelcomeCenter;
     scene.add( WelcomeCenter );
 
-    var urlWelcomeCenterBuilding = tradeCenterGeometriesFolder + "welcome_center_building.js";  //  materials: [1].
-    var urlWelcomeCenterWindows  = tradeCenterGeometriesFolder + "welcome_center_windows.js";   //  materials: [2].
+    var urlWelcomeCenterBuilding = tradeCenterGeometriesFolder + "welcome_center_building.json";  //  materials: [1].
+    var urlWelcomeCenterWindows  = tradeCenterGeometriesFolder + "welcome_center_windows.json";   //  materials: [2].
 
     await caches.match( urlWelcomeCenterBuilding ).then(function(response){
 
