@@ -216,7 +216,7 @@ var tradeCenterGeometriesFolder = "/tradecenter/geometries/";
         var canvas = makePowerOfTwo( img, true );
         var matcap = new THREE.Texture( canvas );
         mesh.material.materials[index] =  ShaderMaterial( normal, matcap );
-        $(this).remove();
+        $(img).remove();
     }
 
 })();
