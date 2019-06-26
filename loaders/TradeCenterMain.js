@@ -14,9 +14,9 @@
     TradeCenterAssets["TradeCenterMain"] = TradeCenterMain;
     scene.add( TradeCenterMain );
 
-    var urlTradeCenterMainBuilding    = tradeCenterGeometriesFolder + "trade_center_main_building.js";           //  materials: [1].
-    var urlTradeCenterWindowStructure = tradeCenterGeometriesFolder + "trade_center_main_window_structure.js";   //  materials: [1].
-    var urlTradeCenterMainWindows     = tradeCenterGeometriesFolder + "trade_center_main_windows.js";            //  materials: [1].
+    var urlTradeCenterMainBuilding    = tradeCenterGeometriesFolder + "trade_center_main_building.json";           //  materials: [1].
+    var urlTradeCenterWindowStructure = tradeCenterGeometriesFolder + "trade_center_main_window_structure.json";   //  materials: [1].
+    var urlTradeCenterMainWindows     = tradeCenterGeometriesFolder + "trade_center_main_windows.json";            //  materials: [1].
 
 
     await caches.match( urlTradeCenterMainBuilding ).then(function(response){
