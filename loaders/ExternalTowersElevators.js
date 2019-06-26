@@ -96,11 +96,11 @@ var ElevatorAssets = {};
 
 //  ELEVATORS.
 
-    var elevatorCabineUrl = tradeCenterGeometriesFolder + "elevator-cabin.js";          //  materials: [6].
-    var elevatorOctreeUrl = tradeCenterGeometriesFolder + "elevator-octree.js";         //  materials: [1].
-    var elevatorDoorFrameUrl = tradeCenterGeometriesFolder + "elevator-doorframe.js";   //  materials: [6].
-    var elevatorDoorLeaf1Url = tradeCenterGeometriesFolder + "elevator-doorleaf1.js";   //  materials: [1].
-    var elevatorDoorLeaf2Url = tradeCenterGeometriesFolder + "elevator-doorleaf2.js";   //  materials: [1].
+    var elevatorCabineUrl = tradeCenterGeometriesFolder + "elevator-cabin.json";          //  materials: [6].
+    var elevatorOctreeUrl = tradeCenterGeometriesFolder + "elevator-octree.json";         //  materials: [1].
+    var elevatorDoorFrameUrl = tradeCenterGeometriesFolder + "elevator-doorframe.json";   //  materials: [6].
+    var elevatorDoorLeaf1Url = tradeCenterGeometriesFolder + "elevator-doorleaf1.json";   //  materials: [1].
+    var elevatorDoorLeaf2Url = tradeCenterGeometriesFolder + "elevator-doorleaf2.json";   //  materials: [1].
 
     await caches.match( elevatorDoorFrameUrl ).then(function(response){
 
