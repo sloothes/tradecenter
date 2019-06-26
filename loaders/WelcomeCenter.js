@@ -213,7 +213,8 @@ var tradeCenterGeometriesFolder = "/tradecenter/geometries/";
 
     function matcapMaterial(mesh, img, index){
         var normal = new THREE.Texture( normalPixel() );
-        var matcap = new THREE.Texture( img );
+        var canvas = makePowerOfTwo( img, true );
+        var matcap = new THREE.Texture( canvas );
         mesh.material.materials[index] =  ShaderMaterial( normal, matcap );
         $(this).remove();
     }
