@@ -16,9 +16,9 @@
     TradeCenterAssets["LeftSideTower"] = LeftSideTower;
     scene.add( LeftSideTower );
 
-    var urlLeftSideTowerBuilding = tradeCenterGeometriesFolder + "external_left_tower_building.js";   //  materials: [1].
-    var urlLeftSideTowerDome     = tradeCenterGeometriesFolder + "external_left_tower_dome.js";       //  materials: [1].
-    var urlLeftSideTowerWindows  = tradeCenterGeometriesFolder + "external_left_tower_windows.js";    //  materials: [2].
+    var urlLeftSideTowerBuilding = tradeCenterGeometriesFolder + "external_left_tower_building.json";   //  materials: [1].
+    var urlLeftSideTowerDome     = tradeCenterGeometriesFolder + "external_left_tower_dome.json";       //  materials: [1].
+    var urlLeftSideTowerWindows  = tradeCenterGeometriesFolder + "external_left_tower_windows.json";    //  materials: [2].
 
     await caches.match( urlLeftSideTowerBuilding ).then(function(response){
 
