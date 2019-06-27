@@ -1,8 +1,8 @@
 //  WelcomeCenter.js (cache first)
 
-var TradeCenterAssets = {};
-var matcapsFolder = "/matcaps/";
-var tradeCenterGeometriesFolder = "/tradecenter/geometries/";
+//  var TradeCenterAssets = {};
+//  var matcapsFolder = "/matcaps/";
+//  var tradeCenterGeometriesFolder = "/tradecenter/geometries/";
 
 (async function(){
 
