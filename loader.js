@@ -1535,13 +1535,8 @@ localPlayer.controller.maxSlopeGradient = 0.001;
     });
 
 
-    scene.add(WelcomeCenter);
-    scene.add( LeftSideTower, RightSideTower, TradeCenterMain );
-
-    scene.add( 
-        TradeCenterAssets["left_cabine"],
-        TradeCenterAssets["right_cabine"],
-     );
+    scene.add( LeftSideTower, RightSideTower, TradeCenterMain, WelcomeCenter );
+    scene.add( TradeCenterAssets["left_cabine"], TradeCenterAssets["right_cabine"], );
 
 
     function matcapMaterial(mesh, img, index){
