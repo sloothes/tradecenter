@@ -33,8 +33,8 @@
                 normalScale: { type: "f", value: 1 },
                 normalRepeat: { type: "f", value: 1 }
             },
-            vertexShader: vertexShader,  // $("#vertex-shader").text(),
-            fragmentShader: fragmentShader, // $("#fragment-shader").text(),
+            vertexShader: vertexShader,
+            fragmentShader: fragmentShader,
             shading: THREE.SmoothShading,
             side: THREE.DoubleSide
         });
