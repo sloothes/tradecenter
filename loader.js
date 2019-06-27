@@ -129,7 +129,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
     }).then(function(json){
 
-        return loadElevatorAsset( json );
+        return loadTradeCenterAsset( json );
 
     }).then( function( mesh ){
 
@@ -281,6 +281,30 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
     });
 
+    function loadTradeCenterAsset( json ){
+
+        var name = json.name;
+        var loader = new THREE.JSONLoader();
+        var object = loader.parse( json );
+
+        var geometry = object.geometry;
+        geometry.computeFaceNormals();
+        geometry.computeVertexNormals();
+        geometry.computeBoundingBox();
+        geometry.computeBoundingSphere();
+        geometry.name = object.geometry.name;
+
+        for (var i=0; i < object.materials.length; i++){
+            object.materials[i].side = 2; // DoubleSide;
+        }
+
+        var material = new THREE.MeshFaceMaterial( object.materials );
+        var mesh = new THREE.Mesh(geometry, material);
+
+        TradeCenterAssets[ name ] = mesh;
+        return TradeCenterAssets[ name ];
+
+    }
 
 //  Elevator cambine.
 
@@ -1059,40 +1083,12 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
 //  RIGHT SIDE TOWER.
 
-    RightSideTower = LeftSideTower.clone();
+    var RightSideTower = LeftSideTower.clone();
     RightSideTower.name = "RIGHT SIDE TOWER";
     RightSideTower.scale.z = -1;   // mirror.
     RightSideTower.position.y = 0.7;
     TradeCenterAssets["RightSideTower"] = RightSideTower;
 
-/*
-    function loadLeftSideTowerAsset( json ){
-
-        var name = json.name;
-        var loader = new THREE.JSONLoader();
-        var object = loader.parse( json );
-
-        var geometry = object.geometry;
-        geometry.computeFaceNormals();
-        geometry.computeVertexNormals();
-        geometry.computeBoundingBox();
-        geometry.computeBoundingSphere();
-        geometry.name = object.geometry.name;
-
-        for (var i=0; i < object.materials.length; i++){
-            object.materials[i].side = 2; // THREE.DoubleSide;
-        }
-
-        var material = new THREE.MeshFaceMaterial( object.materials );
-
-        var mesh = new THREE.Mesh(geometry, material);
-
-        TradeCenterAssets[ name ] = mesh;
-        LeftSideTower.add( TradeCenterAssets[ name ] );
-        return TradeCenterAssets[ name ];
-
-    }
-*/
 
 //  TradeCenterMain.js
 
@@ -1190,7 +1186,6 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
     });
 
-
     await caches.match( urlTradeCenterWindowStructure ).then(function(response){
 
         if ( !response ) 
@@ -1273,7 +1268,6 @@ localPlayer.controller.maxSlopeGradient = 0.001;
         TradeCenterMain.add( mesh );
 
     });
-
 
     await caches.match( urlTradeCenterMainWindows ).then(function(response){
 
@@ -1358,33 +1352,6 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
     });
 
-/*
-    function loadTradeCenterMainAsset( json ){
-
-        var name = json.name;
-        var loader = new THREE.JSONLoader();
-        var object = loader.parse( json );
-
-        var geometry = object.geometry;
-        geometry.computeFaceNormals();
-        geometry.computeVertexNormals();
-        geometry.computeBoundingBox();
-        geometry.computeBoundingSphere();
-        geometry.name = object.geometry.name;
-
-        for (var i=0; i < object.materials.length; i++){
-            object.materials[i].side = 2; // THREE.DoubleSide;
-        }
-
-        var material = new THREE.MeshFaceMaterial( object.materials );
-        var mesh = new THREE.Mesh(geometry, material);
-
-        TradeCenterAssets[ name ] = mesh;
-        TradeCenterMain.add( TradeCenterAssets[ name ] );
-        return TradeCenterAssets[ name ];
-
-    }
-*/
 
 //  WelcomeCenter.js
 
@@ -1481,7 +1448,6 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
     });
 
-
     await caches.match( urlWelcomeCenterWindows ).then(function(response){
 
         if ( !response ) 
@@ -1565,67 +1531,14 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
     });
 
-/*
-    function loadWelcomeCenterAsset( json ){
 
-        var name = json.name;
-        var loader = new THREE.JSONLoader();
-        var object = loader.parse( json );
+    scene.add( 
+        LeftSideTower,
+        RightSideTower,
+        TradeCenterMain,
+        WelcomeCenter 
+     );
 
-        var geometry = object.geometry;
-        geometry.computeFaceNormals();
-        geometry.computeVertexNormals();
-        geometry.computeBoundingBox();
-        geometry.computeBoundingSphere();
-        geometry.name = object.geometry.name;
-
-        if ( !!object.materials )
-            var material = new THREE.MeshFaceMaterial( object.materials );
-        else 
-            var material = new THREE.MeshFaceMaterial( new THREE.MeshStandardMaterial() );
-
-        var mesh = new THREE.Mesh(geometry, material);
-
-        TradeCenterAssets[ name ] = mesh;
-        WelcomeCenter.add( TradeCenterAssets[ name ] );
-        return TradeCenterAssets[ name ];
-
-    }
-*/
-
-
-
-    scene.add( LeftSideTower );
-    scene.add( RightSideTower );
-    scene.add( TradeCenterMain );
-    scene.add( WelcomeCenter );
-
-
-
-    function loadTradeCenterAsset( json ){
-
-        var name = json.name;
-        var loader = new THREE.JSONLoader();
-        var object = loader.parse( json );
-
-        var geometry = object.geometry;
-        geometry.computeFaceNormals();
-        geometry.computeVertexNormals();
-        geometry.computeBoundingBox();
-        geometry.computeBoundingSphere();
-        geometry.name = object.geometry.name;
-
-        for (var i=0; i < object.materials.length; i++){
-            object.materials[i].side = 2; // THREE.DoubleSide;
-        }
-
-        var material = new THREE.MeshFaceMaterial( object.materials );
-        var mesh = new THREE.Mesh(geometry, material);
-
-        TradeCenterAssets[ name ] = mesh;
-        return TradeCenterAssets[ name ];
-
-    }
 
     function matcapMaterial(mesh, img, index){
         var normal = new THREE.Texture( normalPixel() );
