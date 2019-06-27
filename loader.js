@@ -353,6 +353,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
     }).then( function( mesh ){
 
     //  Camera rigid objects.
+
         var geometry = new THREE.BoxGeometry(120,350,30, 1,1,1);
         var material = new THREE.MeshLambertMaterial({visible:false});
 
@@ -556,7 +557,8 @@ localPlayer.controller.maxSlopeGradient = 0.001;
         mesh.rotation.y = THREE.Math.degToRad( 90 );
         cameraControls.rigidObjects.push( mesh );
         TradeCenterAssets["left_cabine"] = mesh;
-        scene.add( mesh );
+
+        //  scene.add( mesh );
 
         await caches.match( elevatorOctreeUrl ).then(function(response){
 
@@ -655,7 +657,8 @@ localPlayer.controller.maxSlopeGradient = 0.001;
         mesh.rotation.y = THREE.Math.degToRad( -90 );
         cameraControls.rigidObjects.push( mesh );
         TradeCenterAssets["right_cabine"] = mesh;
-        scene.add( mesh );
+
+        //  scene.add( mesh );
 
         await caches.match( elevatorOctreeUrl ).then(function(response){
 
@@ -1532,12 +1535,15 @@ localPlayer.controller.maxSlopeGradient = 0.001;
     });
 
 
+    scene.add( LeftSideTower, RightSideTower, TradeCenterMain );
+
     scene.add( 
-        LeftSideTower,
-        RightSideTower,
-        TradeCenterMain,
-        WelcomeCenter 
+        TradeCenterAssets["left_cabine"],
+        TradeCenterAssets["right_cabine"],
      );
+
+    scene.add(WelcomeCenter);
+
 
 
     function matcapMaterial(mesh, img, index){
