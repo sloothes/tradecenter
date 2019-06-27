@@ -1,9 +1,9 @@
 //  ExternalTowersElevators.js
 
 var ElevatorAssets = {};
-//  var TradeCenterAssets = {};
-//  var matcapsFolder = "/tradecenter/matcaps/";
-//  var tradeCenterGeometriesFolder = "/tradecenter/geometries/";
+var TradeCenterAssets = {};
+var matcapsFolder = "/matcaps/";
+var tradeCenterGeometriesFolder = "/tradecenter/geometries/";
 
 (async function(){
 
