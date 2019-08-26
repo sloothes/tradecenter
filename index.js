@@ -198,6 +198,8 @@
     $(document).ready(function(){
         $("#water").addClass("render"); //  important!
         $renders = $("input.render");   //  important!
+        $("#updates").append(`<input type="hidden" id="water-updater" class="update">`);
+        $updates = $("input.update");   //  important!
     });
 
 })();
