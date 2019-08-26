@@ -153,6 +153,8 @@
         scene.add(mirror);
 
         $("input#water").addClass("render"); //  important!
+        $renders = $("input[type=hidden].render"); //  important!
+
     })();
 
     function loadTexture( url, mapping, onLoad, onError ) {
