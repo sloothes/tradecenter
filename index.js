@@ -195,10 +195,4 @@
     axisCustomHelper.visible = false;
     axisOriginHelper.visible = false;
 
-    $(document).ready(function(){
-        $("#water").addClass("render", "update");
-        $renders = $("input.render");   //  important!
-        $updates = $("input.update");   //  important!
-    });
-
 })();

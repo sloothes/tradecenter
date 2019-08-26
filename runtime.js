@@ -1,5 +1,8 @@
 //  runtime.js
 
+
+    $("#water").addClass("render", "update");
+
     var $renders = $("input[type=hidden].render");
     var $updates = $("input[type=hidden].update");
 
