@@ -196,8 +196,8 @@
     axisOriginHelper.visible = false;
 
     $(document).ready(function(){
-        $("input#water").addClass("render"); //  important!
-        $renders = $("input[type=hidden].render"); //  important!
+        $("#water").addClass("render"); //  important!
+        $renders = $("input.render");   //  important!
     });
 
 })();
