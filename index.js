@@ -153,7 +153,7 @@
         scene.add(mirror);
 
         $("input#water").addClass("render"); //  important!
-    )();
+    })();
 
     function loadTexture( url, mapping, onLoad, onError ) {
         //  console.warn( "THREE.ImageUtils.loadTexture has been deprecated. 
