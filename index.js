@@ -110,6 +110,65 @@
     renderer.gammaInput = true;
     renderer.gammaOutput = true;
 
+//  Skydome.
+    (function(){
+        var loader = new THREE.TextureLoader();
+        skydomeGmt = new THREE.SphereGeometry( 2000, 64, 32 );
+        skydomeTxr = loader.load( "/tradecenter/textures/skydome-home.jpg" );
+        skydomeMtl = new THREE.MeshBasicMaterial({
+            map: skydomeTxr,
+            side: THREE.DoubleSide
+        });
+        skydome = new THREE.Mesh( skydomeGmt, skydomeMtl );
+        skydome.scale.y = 0.5;
+        skydome.name = "SKYDOME";
+        scene.add(skydome);
+    })();
+
+//  Water.
+    (function(){
+        var waterNormals = loadTexture("/tradecenter/textures/waternormals.jpg");
+        waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
+    //  Create the water effect.
+        water = new THREE.Water(renderer, camera, scene, {
+            textureWidth: 256,
+            textureHeight: 256,
+            waterNormals: waterNormals,
+            alpha: 1.0,
+            sunDirection: sunLight.position.normalize(),
+            sunColor: 0xffffff,
+            waterColor: 0x001e0f,
+            betaVersion: 0,
+            side: THREE.DoubleSide
+        });
+
+        mirror = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(100000, 100000, 1000, 1000), 
+            water.material
+        );
+
+        mirror.add(water);
+        mirror.rotation.x = - Math.PI * 0.5;
+        mirror.position.y = seaLevel;
+        scene.add(mirror);
+
+        $("input#water").addClass("render"); //  important!
+    )();
+
+    function loadTexture( url, mapping, onLoad, onError ) {
+        //  console.warn( "THREE.ImageUtils.loadTexture has been deprecated. 
+        //  Use THREE.TextureLoader() instead." );
+        function onLoad(txr){}
+        function onProgress(xhr){}
+        function onError(err){}
+        var loader = new THREE.TextureLoader();
+        loader.setCrossOrigin( undefined );
+        var texture = loader.load( url, onLoad, onProgress, onError );
+        if ( mapping ) texture.mapping = mapping;
+        if ( Textures ) Textures.push(texture);
+        return texture;
+    }
+
 //  Event Listeners.
 
     mouse = new THREE.Vector2();
