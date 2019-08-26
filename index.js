@@ -165,7 +165,6 @@
         loader.setCrossOrigin( undefined );
         var texture = loader.load( url, onLoad, onProgress, onError );
         if ( mapping ) texture.mapping = mapping;
-        if ( Textures ) Textures.push(texture);
         return texture;
     }
 
