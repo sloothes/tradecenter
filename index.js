@@ -149,7 +149,7 @@
 
         mirror.add(water);
         mirror.rotation.x = - Math.PI * 0.5;
-        mirror.position.y = 0;
+        mirror.position.y = -2;
         scene.add(mirror);
 
     })();
