@@ -149,7 +149,7 @@
 
         mirror.add(water);
         mirror.rotation.x = - Math.PI * 0.5;
-        mirror.position.y = seaLevel;
+        mirror.position.y = 1.8;
         scene.add(mirror);
 
         $("input#water").addClass("render"); //  important!
