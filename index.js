@@ -30,6 +30,15 @@
         clock,
         mouse;
 
+    function sceneBackground( urls ){
+        if (!scene || Number(THREE.REVISION) < 78) return;
+        var loader = new THREE.CubeTextureLoader();
+        loader.load( urls, function(texture){
+            scene.background = texture;
+            scene.background.needsUpdate = true;
+        });
+    }
+
 (function(){
 
     var container = document.getElementById("scene-container");
@@ -38,6 +47,15 @@
     scene.name = "DEFAULT SCENE";
     scene.fog = new THREE.FogExp2(0xb1c8e8, 0.00075);
     camera = new FpsCamera(50, 1, 10000);
+
+    sceneBackground([
+        "https://i.imgur.com/v6bjQLb.jpg", // "posx.jpg",
+        "https://i.imgur.com/lwrlr6P.jpg", // "negx.jpg", 
+        "https://i.imgur.com/kKUKBJg.jpg", // "posy.jpg", 
+        "https://i.imgur.com/N0oZlJR.jpg", // "negy.jpg", 
+        "https://i.imgur.com/x9q8z0K.jpg", // "posz.jpg", 
+        "https://i.imgur.com/HYcK7Ii.jpg", // "negz.jpg"
+    ]);
 
     camera.position.set(0, 20, 100);
 //  controls = new THREE.EditorControls(camera);
