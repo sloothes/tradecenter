@@ -152,9 +152,6 @@
         mirror.position.y = 1.8;
         scene.add(mirror);
 
-        $("input#water").addClass("render"); //  important!
-        $renders = $("input[type=hidden].render"); //  important!
-
     })();
 
     function loadTexture( url, mapping, onLoad, onError ) {
@@ -197,5 +194,10 @@
     groundHelper.visible = false;
     axisCustomHelper.visible = false;
     axisOriginHelper.visible = false;
+
+    $(document).ready(function(){
+        $("input#water").addClass("render"); //  important!
+        $renders = $("input[type=hidden].render"); //  important!
+    });
 
 })();
