@@ -196,9 +196,8 @@
     axisOriginHelper.visible = false;
 
     $(document).ready(function(){
-        $("#water").addClass("render"); //  important!
+        $("#water").addClass("render", "update");
         $renders = $("input.render");   //  important!
-        $("#updates").append(`<input type="hidden" id="water-updater" class="update">`);
         $updates = $("input.update");   //  important!
     });
 
