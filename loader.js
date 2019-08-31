@@ -1214,6 +1214,8 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 $updates = $("input[type=hidden].update");
             };
 
+            scene.add(elevator);
+
         });
 
         return mesh;
@@ -1296,6 +1298,8 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 $updates = $("input[type=hidden].update");
             };
 
+            scene.add(elevator);
+
         });
 
         return mesh;
@@ -1303,8 +1307,8 @@ localPlayer.controller.maxSlopeGradient = 0.001;
     });
 
     scene.add(  WelcomeCenter );
-    scene.add( TradeCenterAssets["left_cabine"] );
-    scene.add( TradeCenterAssets["right_cabine"] );
+//  scene.add( TradeCenterAssets["left_cabine"] );
+//  scene.add( TradeCenterAssets["right_cabine"] );
 
     function loadElevatorAsset( json ){
 
