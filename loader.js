@@ -7,7 +7,7 @@ var tradeCenterGeometriesFolder = "/tradecenter/geometries/";
 
 localPlayer.controller.maxSlopeGradient = 0.001;
 
-(async function(){
+(function(){
 
 //  TradeCenterMain.js
 
@@ -22,7 +22,29 @@ localPlayer.controller.maxSlopeGradient = 0.001;
     var urlTradeCenterWindowStructure = tradeCenterGeometriesFolder + "trade_center_main_window_structure.json";   //  materials: [1].
     var urlTradeCenterMainWindows     = tradeCenterGeometriesFolder + "trade_center_main_windows.json";            //  materials: [1].
 
-    await caches.match( urlTradeCenterMainBuilding ).then(function(response){
+    function putGeometryCache(url, response){
+        return caches.open("geometries").then(function(cache){
+        //  Clone is needed because put() consumes the response body.
+        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
+            var clone = response.clone();
+            return cache.put( url, clone ).then(function(){
+                return response.json();
+            });
+        });
+    }
+
+    function putTextureCache(url, response){
+        return caches.open("textures").then(function(cache){
+            //  Clone is needed because put() consumes the response body.
+            //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
+            var clone = response.clone();
+            return cache.put( url, clone ).then(function(){
+                return response.blob();
+            });
+        });
+    }
+
+    caches.match( urlTradeCenterMainBuilding ).then(function(response){
 
         if ( !response ) 
             throw response;
@@ -33,23 +55,15 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         return fetch( urlTradeCenterMainBuilding );
 
-    }).then(async function(response){
+    }).then(function(response){
 
-        var cache = await caches.open("geometries")
-            .then(function(cache){ return cache; });
-
-    //  Clone is needed because put() consumes the response body.
-    //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-        var clone = response.clone();
-        await cache.put( urlTradeCenterMainBuilding, clone );
-        return response.json();
+        return putGeometryCache( urlTradeCenterMainBuilding, response ); // returns json.
 
     }).then(function(json){
 
         return loadTradeCenterAsset( json );
 
-    }).then( function( mesh ){
+    }).then(function( mesh ){
         mesh.name = "trade center main structure";
 
         var url = matcapsFolder + "env7.jpg";
@@ -69,17 +83,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 method: "GET",
             });
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("textures")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( url, clone );
-            return response.blob();
+            return putTextureCache( url, response ); // returns blob.
 
         }).then(function(blob){
 
@@ -105,7 +111,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
     });
 
-    await caches.match( urlTradeCenterWindowStructure ).then(function(response){
+    caches.match( urlTradeCenterWindowStructure ).then(function(response){
 
         if ( !response ) 
             throw response;
@@ -116,17 +122,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         return fetch( urlTradeCenterWindowStructure );
 
-    }).then(async function(response){
+    }).then(function(response){
 
-        var cache = await caches.open("geometries")
-            .then(function(cache){ return cache; });
-
-    //  Clone is needed because put() consumes the response body.
-    //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-        var clone = response.clone();
-        await cache.put( urlTradeCenterWindowStructure, clone );
-        return response.json();
+        return putGeometryCache( urlTradeCenterWindowStructure, response ); // returns json.
 
     }).then(function(json){
 
@@ -152,17 +150,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 method: "GET",
             });
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("textures")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( url, clone );
-            return response.blob();
+            return putTextureCache( url, response ); // returns blob.
 
         }).then(function(blob){
 
@@ -188,7 +178,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
     });
 
-    await caches.match( urlTradeCenterMainWindows ).then(function(response){
+    caches.match( urlTradeCenterMainWindows ).then(function(response){
 
         if ( !response ) 
             throw response;
@@ -199,23 +189,15 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         return fetch( urlTradeCenterMainWindows );
 
-    }).then(async function(response){
+    }).then(function(response){
 
-        var cache = await caches.open("geometries")
-            .then(function(cache){ return cache; });
-
-    //  Clone is needed because put() consumes the response body.
-    //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-        var clone = response.clone();
-        await cache.put( urlTradeCenterMainWindows, clone );
-        return response.json();
+        return putGeometryCache( urlTradeCenterMainWindows, response ); // returns json.
 
     }).then(function(json){
 
         return loadTradeCenterAsset( json );
 
-    }).then( function( mesh ){
+    }).then(function( mesh ){
         mesh.name = "trade center main windows";
 
         var url = matcapsFolder + "ANGMAP11.jpg";
@@ -235,17 +217,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 method: "GET",
             });
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("textures")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( url, clone );
-            return response.blob();
+            return putTextureCache( url, response ); // returns blob.
 
         }).then(function(blob){
 
@@ -271,7 +245,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
     });
 
-    scene.add(  TradeCenterMain );
+    scene.add( TradeCenterMain );
 
 //  ExternalSideTowers.js
 
@@ -288,7 +262,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
     var urlLeftSideTowerDome     = tradeCenterGeometriesFolder + "external_left_tower_dome.json";       //  materials: [1].
     var urlLeftSideTowerWindows  = tradeCenterGeometriesFolder + "external_left_tower_windows.json";    //  materials: [2].
 
-    await caches.match( urlLeftSideTowerBuilding ).then(function(response){
+    caches.match( urlLeftSideTowerBuilding ).then(function(response){
 
         if ( !response ) 
             throw response;
@@ -299,17 +273,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         return fetch( urlLeftSideTowerBuilding );
 
-    }).then(async function(response){
+    }).then(function(response){
 
-        var cache = await caches.open("geometries")
-            .then(function(cache){ return cache; });
-
-    //  Clone is needed because put() consumes the response body.
-    //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-        var clone = response.clone();
-        await cache.put( urlLeftSideTowerBuilding, clone );
-        return response.json();
+        return putGeometryCache( urlLeftSideTowerBuilding, response ); // returns json.
 
     }).then(function(json){
 
@@ -335,17 +301,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 method: "GET",
             });
 
-        }).then(async function(response){
+        }).then( function(response){
 
-            var cache = await caches.open("textures")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( url, clone );
-            return response.blob();
+            return putTextureCache( url, response ); // returns blob.
 
         }).then(function(blob){
 
@@ -371,7 +329,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
     });
 
-    await caches.match( urlLeftSideTowerDome ).then(function(response){
+    caches.match( urlLeftSideTowerDome ).then(function(response){
 
         if ( !response ) 
             throw response;
@@ -382,23 +340,15 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         return fetch( urlLeftSideTowerDome );
 
-    }).then(async function(response){
+    }).then(function(response){
 
-        var cache = await caches.open("geometries")
-            .then(function(cache){ return cache; });
-
-    //  Clone is needed because put() consumes the response body.
-    //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-        var clone = response.clone();
-        await cache.put( urlLeftSideTowerDome, clone );
-        return response.json();
+        return putGeometryCache( urlLeftSideTowerDome, response ); // returns json.
 
     }).then(function(json){
 
         return loadTradeCenterAsset( json );
 
-    }).then( function( mesh ){
+    }).then(function( mesh ){
         mesh.name = "side tower dome";
 
         var url = matcapsFolder + "ChromeReflect.jpg";
@@ -418,17 +368,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 method: "GET",
             });
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("textures")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( url, clone );
-            return response.blob();
+            return putTextureCache( url, response ); // returns blob.
 
         }).then(function(blob){
 
@@ -454,7 +396,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
     });
 
-    await caches.match( urlLeftSideTowerWindows ).then(function(response){
+    caches.match( urlLeftSideTowerWindows ).then(function(response){
 
         if ( !response ) 
             throw response;
@@ -465,17 +407,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         return fetch( urlLeftSideTowerWindows );
 
-    }).then(async function(response){
+    }).then(function(response){
 
-        var cache = await caches.open("geometries")
-            .then(function(cache){ return cache; });
-
-    //  Clone is needed because put() consumes the response body.
-    //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-        var clone = response.clone();
-        await cache.put( urlLeftSideTowerWindows, clone );
-        return response.json();
+        return putGeometryCache( urlLeftSideTowerWindows, response ); // returns json.
 
     }).then(function(json){
 
@@ -501,17 +435,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 method: "GET",
             });
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("textures")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( url, clone );
-            return response.blob();
+            return putTextureCache( url, response ); // returns blob.
 
         }).then(function(blob){
 
@@ -554,17 +480,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 method: "GET",
             });
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("textures")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( url, clone );
-            return response.blob();
+            return putTextureCache( url, response ); // returns blob.
 
         }).then(function(blob){
 
@@ -600,7 +518,6 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
     scene.add( LeftSideTower, RightSideTower );
 
-
 //  WelcomeCenter.js
 
     var s = 1;  //  scale.
@@ -613,7 +530,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
     var urlWelcomeCenterBuilding = tradeCenterGeometriesFolder + "welcome_center_building.json";  //  materials: [1].
     var urlWelcomeCenterWindows  = tradeCenterGeometriesFolder + "welcome_center_windows.json";   //  materials: [2].
 
-    await caches.match( urlWelcomeCenterBuilding ).then(function(response){
+    caches.match( urlWelcomeCenterBuilding ).then(function(response){
 
         if ( !response ) 
             throw response;
@@ -624,17 +541,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         return fetch( urlWelcomeCenterBuilding );
 
-    }).then(async function(response){
+    }).then(function(response){
 
-        var cache = await caches.open("geometries")
-            .then(function(cache){ return cache; });
-
-    //  Clone is needed because put() consumes the response body.
-    //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-        var clone = response.clone();
-        await cache.put( urlWelcomeCenterBuilding, clone );
-        return response.json();
+        return putGeometryCache( urlWelcomeCenterBuilding, response ); // returns json.
 
     }).then(function(json){
 
@@ -660,17 +569,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 method: "GET",
             });
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("textures")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( url, clone );
-            return response.blob();
+            return putTextureCache( url, response ); // returns blob.
 
         }).then(function(blob){
 
@@ -696,7 +597,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
     });
 
-    await caches.match( urlWelcomeCenterWindows ).then(function(response){
+    caches.match( urlWelcomeCenterWindows ).then(function(response){
 
         if ( !response ) 
             throw response;
@@ -707,17 +608,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         return fetch( urlWelcomeCenterWindows );
 
-    }).then(async function(response){
+    }).then(function(response){
 
-        var cache = await caches.open("geometries")
-            .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-        var clone = response.clone();
-        await cache.put( urlWelcomeCenterWindows, clone );
-        return response.json();
+        return putGeometryCache( urlWelcomeCenterWindows, response ); // returns json.
 
     }).then(function(json){
 
@@ -743,17 +636,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 method: "GET",
             });
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("textures")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( url, clone );
-            return response.blob();
+            return putTextureCache( url, response ); // returns blob.
 
         }).then(function(blob){
 
@@ -875,7 +760,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
     var elevatorDoorLeaf1Url = tradeCenterGeometriesFolder + "elevator-doorleaf1.json";   //  materials: [1].
     var elevatorDoorLeaf2Url = tradeCenterGeometriesFolder + "elevator-doorleaf2.json";   //  materials: [1].
 
-    await caches.match( elevatorDoorFrameUrl ).then(function(response){
+    caches.match( elevatorDoorFrameUrl ).then(function(response){
 
         if ( !response ) 
             throw response;
@@ -886,17 +771,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         return fetch( elevatorDoorFrameUrl );
 
-    }).then(async function(response){
+    }).then(function(response){
 
-        var cache = await caches.open("geometries")
-            .then(function(cache){ return cache; });
-
-    //  Clone is needed because put() consumes the response body.
-    //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-        var clone = response.clone();
-        await cache.put( elevatorDoorFrameUrl, clone );
-        return response.json();
+        return putGeometryCache( elevatorDoorFrameUrl, response ); // returns json.
 
     }).then(function(json){
 
@@ -921,17 +798,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 method: "GET",
             });
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("textures")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( url, clone );
-            return response.blob();
+            return putTextureCache( url, response ); // returns blob.
 
         }).then(function(blob){
 
@@ -985,17 +854,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 method: "GET",
             });
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("textures")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( url, clone );
-            return response.blob();
+            return putTextureCache( url, response ); // returns blob.
 
         }).then(function(blob){
 
@@ -1055,7 +916,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
 //  Elevator cambine.
 
-    await caches.match( elevatorCabineUrl ).then(function(response){
+    caches.match( elevatorCabineUrl ).then(function(response){
 
         if ( !response ) 
             throw response;
@@ -1066,17 +927,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         return fetch( elevatorCabineUrl );
 
-    }).then(async function(response){
+    }).then(function(response){
 
-        var cache = await caches.open("geometries")
-            .then(function(cache){ return cache; });
-
-    //  Clone is needed because put() consumes the response body.
-    //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-        var clone = response.clone();
-        await cache.put( elevatorCabineUrl, clone );
-        return response.json();
+        return putGeometryCache( elevatorCabineUrl, response ); // returns json.
 
     }).then(function(json){
 
@@ -1137,17 +990,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 method: "GET",
             });
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("textures")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( url, clone );
-            return response.blob();
+            return putTextureCache( url, response ); // returns blob.
 
         }).then(function(blob){
 
@@ -1194,17 +1039,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 method: "GET",
             });
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("textures")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( url, clone );
-            return response.blob();
+            return putTextureCache( url, response ); // returns blob.
 
         }).then(function(blob){
 
@@ -1252,17 +1089,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 method: "GET",
             });
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("textures")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( url, clone );
-            return response.blob();
+            return putTextureCache( url, response ); // returns blob.
 
         }).then(function(blob){
 
@@ -1297,7 +1126,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         return mesh;
 
-    }).then( async function( mesh ){
+    }).then(function( mesh ){
 
         mesh.name = "elevator cabine";
         mesh.position.set( -30, 0, -175);
@@ -1307,7 +1136,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         //  scene.add( mesh );
 
-        await caches.match( elevatorOctreeUrl ).then(function(response){
+        return caches.match( elevatorOctreeUrl ).then(function(response){
 
             if ( !response ) 
                 throw response;
@@ -1318,17 +1147,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
             return fetch( elevatorOctreeUrl );
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("geometries")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( elevatorOctreeUrl, clone );
-            return response.json();
+            return putGeometryCache( elevatorOctreeUrl, response ); // returns json.
 
         }).then(function(json){
 
@@ -1397,7 +1218,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         return mesh;
 
-    }).then( async function( mesh ){
+    }).then( function( mesh ){
 
         var mesh = mesh.clone();
         mesh.position.set( -30, 0, 175);
@@ -1407,7 +1228,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         //  scene.add( mesh );
 
-        await caches.match( elevatorOctreeUrl ).then(function(response){
+        return caches.match( elevatorOctreeUrl ).then(function(response){
 
             if ( !response ) 
                 throw response;
@@ -1418,17 +1239,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
             return fetch( elevatorOctreeUrl );
 
-        }).then(async function(response){
+        }).then(function(response){
 
-            var cache = await caches.open("geometries")
-                .then(function(cache){ return cache; });
-
-        //  Clone is needed because put() consumes the response body.
-        //  See: "https://developer.mozilla.org/en-US/docs/Web/API/Cache/put"
-
-            var clone = response.clone();
-            await cache.put( elevatorOctreeUrl, clone );
-            return response.json();
+            return putGeometryCache( elevatorOctreeUrl, response ); // returns json.
 
         }).then(function(json){
 
