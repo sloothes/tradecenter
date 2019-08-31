@@ -1302,13 +1302,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
     });
 
-
     scene.add(  WelcomeCenter );
-    scene.add( 
-        TradeCenterAssets["left_cabine"], 
-        TradeCenterAssets["right_cabine"], 
-    );
-
+    scene.add( TradeCenterAssets["left_cabine"] );
+    scene.add( TradeCenterAssets["right_cabine"] );
 
     function loadElevatorAsset( json ){
 
