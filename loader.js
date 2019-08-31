@@ -1215,10 +1215,10 @@ localPlayer.controller.maxSlopeGradient = 0.001;
             };
 
             scene.add(elevator);
+            
+            return elevator; // important!
 
         });
-
-        return mesh;
 
     }).then( function( mesh ){
 
@@ -1300,9 +1300,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
             scene.add(elevator);
 
-        });
+            return elevator; // important!
 
-        return mesh;
+        });
 
     });
 
