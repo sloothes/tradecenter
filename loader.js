@@ -262,30 +262,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
     var urlLeftSideTowerDome     = tradeCenterGeometriesFolder + "external_left_tower_dome.json";       //  materials: [1].
     var urlLeftSideTowerWindows  = tradeCenterGeometriesFolder + "external_left_tower_windows.json";    //  materials: [2].
 
-    caches.match( urlLeftSideTowerBuilding ).then(function(response){
+    Promise.all([
 
-        if ( !response ) 
-            throw response;
-        else
-            return response;
-
-    }).catch(function(err){
-
-        return fetch( urlLeftSideTowerBuilding );
-
-    }).then(function(response){
-
-        return putGeometryCache( urlLeftSideTowerBuilding, response ); // returns json.
-
-    }).then(function(json){
-
-        return loadTradeCenterAsset( json );
-
-    }).then( function( mesh ){
-        mesh.name = "side tower structure";
-
-        var url = matcapsFolder + "env7.jpg";
-        caches.match( url ).then(function(response){
+        caches.match( urlLeftSideTowerBuilding ).then(function(response){
 
             if ( !response ) 
                 throw response;
@@ -294,132 +273,65 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         }).catch(function(err){
 
-        //  We use cors origin mode to avoid
-        //  texture tainted canvases, images.
-            return fetch( url, {
-                mode: "cors",
-                method: "GET",
-            });
-
-        }).then( function(response){
-
-            return putTextureCache( url, response ); // returns blob.
-
-        }).then(function(blob){
-
-            var img = new Image();
-            img.crossOrigin = "anonymous";
-
-            $(img).on("load", function(){
-                matcapMaterial(mesh, img, 0);
-            });
-
-        //  Get dataURL from blob.
-
-            var reader = new FileReader();
-            reader.onload = function() {
-                img.src = reader.result;
-            };
-
-            reader.readAsDataURL(blob);
-
-        });
-
-        LeftSideTower.add( mesh );
-
-    });
-
-    caches.match( urlLeftSideTowerDome ).then(function(response){
-
-        if ( !response ) 
-            throw response;
-        else
-            return response;
-
-    }).catch(function(err){
-
-        return fetch( urlLeftSideTowerDome );
-
-    }).then(function(response){
-
-        return putGeometryCache( urlLeftSideTowerDome, response ); // returns json.
-
-    }).then(function(json){
-
-        return loadTradeCenterAsset( json );
-
-    }).then(function( mesh ){
-        mesh.name = "side tower dome";
-
-        var url = matcapsFolder + "ChromeReflect.jpg";
-        caches.match( url ).then(function(response){
-
-            if ( !response ) 
-                throw response;
-            else
-                return response;
-
-        }).catch(function(err){
-
-        //  We use cors origin mode to avoid
-        //  texture tainted canvases, images.
-            return fetch( url, {
-                mode: "cors",
-                method: "GET",
-            });
+            return fetch( urlLeftSideTowerBuilding );
 
         }).then(function(response){
 
-            return putTextureCache( url, response ); // returns blob.
+            return putGeometryCache( urlLeftSideTowerBuilding, response ); // returns json.
 
-        }).then(function(blob){
+        }).then(function(json){
 
-            var img = new Image();
-            img.crossOrigin = "anonymous";
+            return loadTradeCenterAsset( json );
 
-            $(img).on("load", function(){
-                matcapMaterial(mesh, img, 0);
+        }).then( function( mesh ){
+            mesh.name = "side tower structure";
+
+            var url = matcapsFolder + "env7.jpg";
+            caches.match( url ).then(function(response){
+
+                if ( !response ) 
+                    throw response;
+                else
+                    return response;
+
+            }).catch(function(err){
+
+            //  We use cors origin mode to avoid
+            //  texture tainted canvases, images.
+                return fetch( url, {
+                    mode: "cors",
+                    method: "GET",
+                });
+
+            }).then( function(response){
+
+                return putTextureCache( url, response ); // returns blob.
+
+            }).then(function(blob){
+
+                var img = new Image();
+                img.crossOrigin = "anonymous";
+
+                $(img).on("load", function(){
+                    matcapMaterial(mesh, img, 0);
+                });
+
+            //  Get dataURL from blob.
+
+                var reader = new FileReader();
+                reader.onload = function() {
+                    img.src = reader.result;
+                };
+
+                reader.readAsDataURL(blob);
+
             });
 
-        //  Get dataURL from blob.
+            LeftSideTower.add( mesh );
 
-            var reader = new FileReader();
-            reader.onload = function() {
-                img.src = reader.result;
-            };
+        }),
 
-            reader.readAsDataURL(blob);
-
-        });
-
-        LeftSideTower.add( mesh );
-
-    });
-
-    caches.match( urlLeftSideTowerWindows ).then(function(response){
-
-        if ( !response ) 
-            throw response;
-        else
-            return response;
-
-    }).catch(function(err){
-
-        return fetch( urlLeftSideTowerWindows );
-
-    }).then(function(response){
-
-        return putGeometryCache( urlLeftSideTowerWindows, response ); // returns json.
-
-    }).then(function(json){
-
-        return loadTradeCenterAsset( json );
-
-    }).then( function( mesh ){
-        mesh.name = "side tower windows";
-
-        var url = matcapsFolder + "ANGMAP11.jpg";
-        caches.match( url ).then(function(response){
+        caches.match( urlLeftSideTowerDome ).then(function(response){
 
             if ( !response ) 
                 throw response;
@@ -428,43 +340,65 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         }).catch(function(err){
 
-        //  We use cors origin mode to avoid
-        //  texture tainted canvases, images.
-            return fetch( url, {
-                mode: "cors",
-                method: "GET",
-            });
+            return fetch( urlLeftSideTowerDome );
 
         }).then(function(response){
 
-            return putTextureCache( url, response ); // returns blob.
+            return putGeometryCache( urlLeftSideTowerDome, response ); // returns json.
 
-        }).then(function(blob){
+        }).then(function(json){
 
-            var img = new Image();
-            img.crossOrigin = "anonymous";
+            return loadTradeCenterAsset( json );
 
-            $(img).on("load", function(){
-                matcapMaterial(mesh, img, 0);
+        }).then(function( mesh ){
+            mesh.name = "side tower dome";
+
+            var url = matcapsFolder + "ChromeReflect.jpg";
+            caches.match( url ).then(function(response){
+
+                if ( !response ) 
+                    throw response;
+                else
+                    return response;
+
+            }).catch(function(err){
+
+            //  We use cors origin mode to avoid
+            //  texture tainted canvases, images.
+                return fetch( url, {
+                    mode: "cors",
+                    method: "GET",
+                });
+
+            }).then(function(response){
+
+                return putTextureCache( url, response ); // returns blob.
+
+            }).then(function(blob){
+
+                var img = new Image();
+                img.crossOrigin = "anonymous";
+
+                $(img).on("load", function(){
+                    matcapMaterial(mesh, img, 0);
+                });
+
+            //  Get dataURL from blob.
+
+                var reader = new FileReader();
+                reader.onload = function() {
+                    img.src = reader.result;
+                };
+
+                reader.readAsDataURL(blob);
+
             });
 
-        //  Get dataURL from blob.
+            LeftSideTower.add( mesh );
 
-            var reader = new FileReader();
-            reader.onload = function() {
-                img.src = reader.result;
-            };
+        }),
 
-            reader.readAsDataURL(blob);
-
-        });
-
-        return mesh;
-
-    }).then( function( mesh ){
-
-        var url = matcapsFolder + "ChromeReflect.jpg";
-        caches.match( url ).then(function(response){
+        caches.match( urlLeftSideTowerWindows ).then(function(response){
 
             if ( !response ) 
                 throw response;
@@ -473,50 +407,122 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         }).catch(function(err){
 
-        //  We use cors origin mode to avoid
-        //  texture tainted canvases, images.
-            return fetch( url, {
-                mode: "cors",
-                method: "GET",
-            });
+            return fetch( urlLeftSideTowerWindows );
 
         }).then(function(response){
 
-            return putTextureCache( url, response ); // returns blob.
+            return putGeometryCache( urlLeftSideTowerWindows, response ); // returns json.
 
-        }).then(function(blob){
+        }).then(function(json){
 
-            var img = new Image();
-            img.crossOrigin = "anonymous";
+            return loadTradeCenterAsset( json );
 
-            $(img).on("load", function(){
-                matcapMaterial(mesh, img, 1);
+        }).then( function( mesh ){
+            mesh.name = "side tower windows";
+
+            var url = matcapsFolder + "ANGMAP11.jpg";
+            caches.match( url ).then(function(response){
+
+                if ( !response ) 
+                    throw response;
+                else
+                    return response;
+
+            }).catch(function(err){
+
+            //  We use cors origin mode to avoid
+            //  texture tainted canvases, images.
+                return fetch( url, {
+                    mode: "cors",
+                    method: "GET",
+                });
+
+            }).then(function(response){
+
+                return putTextureCache( url, response ); // returns blob.
+
+            }).then(function(blob){
+
+                var img = new Image();
+                img.crossOrigin = "anonymous";
+
+                $(img).on("load", function(){
+                    matcapMaterial(mesh, img, 0);
+                });
+
+            //  Get dataURL from blob.
+
+                var reader = new FileReader();
+                reader.onload = function() {
+                    img.src = reader.result;
+                };
+
+                reader.readAsDataURL(blob);
+
             });
 
-        //  Get dataURL from blob.
+            return mesh;
 
-            var reader = new FileReader();
-            reader.onload = function() {
-                img.src = reader.result;
-            };
+        }).then( function( mesh ){
 
-            reader.readAsDataURL(blob);
+            var url = matcapsFolder + "ChromeReflect.jpg";
+            caches.match( url ).then(function(response){
 
-        });
+                if ( !response ) 
+                    throw response;
+                else
+                    return response;
 
-        LeftSideTower.add( mesh );
+            }).catch(function(err){
+
+            //  We use cors origin mode to avoid
+            //  texture tainted canvases, images.
+                return fetch( url, {
+                    mode: "cors",
+                    method: "GET",
+                });
+
+            }).then(function(response){
+
+                return putTextureCache( url, response ); // returns blob.
+
+            }).then(function(blob){
+
+                var img = new Image();
+                img.crossOrigin = "anonymous";
+
+                $(img).on("load", function(){
+                    matcapMaterial(mesh, img, 1);
+                });
+
+            //  Get dataURL from blob.
+
+                var reader = new FileReader();
+                reader.onload = function() {
+                    img.src = reader.result;
+                };
+
+                reader.readAsDataURL(blob);
+
+            });
+
+            LeftSideTower.add( mesh );
+
+        })
+        
+    ]).then(function(){
+
+    //  RIGHT SIDE TOWER.
+
+        var RightSideTower = LeftSideTower.clone();
+        RightSideTower.name = "RIGHT SIDE TOWER";
+        RightSideTower.scale.z = -1;   // mirror.
+        RightSideTower.position.y = 0.7;
+        TradeCenterAssets["RightSideTower"] = RightSideTower;
+
+        scene.add( LeftSideTower, RightSideTower );
 
     });
-
-//  RIGHT SIDE TOWER.
-
-    var RightSideTower = LeftSideTower.clone();
-    RightSideTower.name = "RIGHT SIDE TOWER";
-    RightSideTower.scale.z = -1;   // mirror.
-    RightSideTower.position.y = 0.7;
-    TradeCenterAssets["RightSideTower"] = RightSideTower;
-
-    scene.add( LeftSideTower, RightSideTower );
 
 //  WelcomeCenter.js
 
@@ -1134,7 +1140,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
         cameraControls.rigidObjects.push( mesh );
         TradeCenterAssets["left_cabine"] = mesh;
 
-        //  scene.add( mesh );
+        scene.add( mesh ); // important!
 
         return caches.match( elevatorOctreeUrl ).then(function(response){
 
@@ -1228,7 +1234,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
         cameraControls.rigidObjects.push( mesh );
         TradeCenterAssets["right_cabine"] = mesh;
 
-        //  scene.add( mesh );
+        scene.add( mesh ); // important!
 
         return caches.match( elevatorOctreeUrl ).then(function(response){
 
