@@ -39,10 +39,10 @@
     cameraControls.offset.y = 20;
     cameraControls.setLatLon(-23, 270);
     localPlayer.controller.center.x = -380;
-    if ( isMobile ) {
-        cameraControls.radius = cameraControls.minRadius;
-        cameraControls.maxRadius = cameraControls.minRadius;
-    }
+//  if ( isMobile ) {
+    cameraControls.radius = cameraControls.minRadius;
+    cameraControls.maxRadius = cameraControls.minRadius;
+//  }
 
 
 //  Runtime.
