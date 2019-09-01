@@ -44,30 +44,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
         });
     }
 
-    caches.match( urlTradeCenterMainBuilding ).then(function(response){
+    Promise.all([
 
-        if ( !response ) 
-            throw response;
-        else
-            return response;
-
-    }).catch(function(err){
-
-        return fetch( urlTradeCenterMainBuilding );
-
-    }).then(function(response){
-
-        return putGeometryCache( urlTradeCenterMainBuilding, response ); // returns json.
-
-    }).then(function(json){
-
-        return loadTradeCenterAsset( json );
-
-    }).then(function( mesh ){
-        mesh.name = "trade center main structure";
-
-        var url = matcapsFolder + "env7.jpg";
-        caches.match( url ).then(function(response){
+        caches.match( urlTradeCenterMainBuilding ).then(function(response){
 
             if ( !response ) 
                 throw response;
@@ -76,65 +55,65 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         }).catch(function(err){
 
-        //  We use cors origin mode to avoid
-        //  texture tainted canvases, images.
-            return fetch( url, {
-                mode: "cors",
-                method: "GET",
-            });
+            return fetch( urlTradeCenterMainBuilding );
 
         }).then(function(response){
 
-            return putTextureCache( url, response ); // returns blob.
+            return putGeometryCache( urlTradeCenterMainBuilding, response ); // returns json.
 
-        }).then(function(blob){
+        }).then(function(json){
 
-            var img = new Image();
-            img.crossOrigin = "anonymous";
+            return loadTradeCenterAsset( json );
 
-            $(img).on("load", function(){
-                matcapMaterial(mesh, img, 0);
+        }).then(function( mesh ){
+            mesh.name = "trade center main structure";
+
+            var url = matcapsFolder + "env7.jpg";
+            caches.match( url ).then(function(response){
+
+                if ( !response ) 
+                    throw response;
+                else
+                    return response;
+
+            }).catch(function(err){
+
+            //  We use cors origin mode to avoid
+            //  texture tainted canvases, images.
+                return fetch( url, {
+                    mode: "cors",
+                    method: "GET",
+                });
+
+            }).then(function(response){
+
+                return putTextureCache( url, response ); // returns blob.
+
+            }).then(function(blob){
+
+                var img = new Image();
+                img.crossOrigin = "anonymous";
+
+                $(img).on("load", function(){
+                    matcapMaterial(mesh, img, 0);
+                });
+
+            //  Get dataURL from blob.
+
+                var reader = new FileReader();
+                reader.onload = function() {
+                    img.src = reader.result;
+                };
+
+                reader.readAsDataURL(blob);
+
             });
 
-        //  Get dataURL from blob.
+            TradeCenterMain.add( mesh );
 
-            var reader = new FileReader();
-            reader.onload = function() {
-                img.src = reader.result;
-            };
+        }),
 
-            reader.readAsDataURL(blob);
-
-        });
-
-        TradeCenterMain.add( mesh );
-
-    });
-
-    caches.match( urlTradeCenterWindowStructure ).then(function(response){
-
-        if ( !response ) 
-            throw response;
-        else
-            return response;
-
-    }).catch(function(err){
-
-        return fetch( urlTradeCenterWindowStructure );
-
-    }).then(function(response){
-
-        return putGeometryCache( urlTradeCenterWindowStructure, response ); // returns json.
-
-    }).then(function(json){
-
-        return loadTradeCenterAsset( json );
-
-    }).then( function( mesh ){
-        mesh.name = "trade center window structure";
-
-        var url = matcapsFolder + "ChromeReflect.jpg";
-        caches.match( url ).then(function(response){
+        caches.match( urlTradeCenterWindowStructure ).then(function(response){
 
             if ( !response ) 
                 throw response;
@@ -143,65 +122,65 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         }).catch(function(err){
 
-        //  We use cors origin mode to avoid
-        //  texture tainted canvases, images.
-            return fetch( url, {
-                mode: "cors",
-                method: "GET",
-            });
+            return fetch( urlTradeCenterWindowStructure );
 
         }).then(function(response){
 
-            return putTextureCache( url, response ); // returns blob.
+            return putGeometryCache( urlTradeCenterWindowStructure, response ); // returns json.
 
-        }).then(function(blob){
+        }).then(function(json){
 
-            var img = new Image();
-            img.crossOrigin = "anonymous";
+            return loadTradeCenterAsset( json );
 
-            $(img).on("load", function(){
-                matcapMaterial(mesh, img, 0);
+        }).then( function( mesh ){
+            mesh.name = "trade center window structure";
+
+            var url = matcapsFolder + "ChromeReflect.jpg";
+            caches.match( url ).then(function(response){
+
+                if ( !response ) 
+                    throw response;
+                else
+                    return response;
+
+            }).catch(function(err){
+
+            //  We use cors origin mode to avoid
+            //  texture tainted canvases, images.
+                return fetch( url, {
+                    mode: "cors",
+                    method: "GET",
+                });
+
+            }).then(function(response){
+
+                return putTextureCache( url, response ); // returns blob.
+
+            }).then(function(blob){
+
+                var img = new Image();
+                img.crossOrigin = "anonymous";
+
+                $(img).on("load", function(){
+                    matcapMaterial(mesh, img, 0);
+                });
+
+            //  Get dataURL from blob.
+
+                var reader = new FileReader();
+                reader.onload = function() {
+                    img.src = reader.result;
+                };
+
+                reader.readAsDataURL(blob);
+
             });
 
-        //  Get dataURL from blob.
+            TradeCenterMain.add( mesh );
 
-            var reader = new FileReader();
-            reader.onload = function() {
-                img.src = reader.result;
-            };
+        }),
 
-            reader.readAsDataURL(blob);
-
-        });
-
-        TradeCenterMain.add( mesh );
-
-    });
-
-    caches.match( urlTradeCenterMainWindows ).then(function(response){
-
-        if ( !response ) 
-            throw response;
-        else
-            return response;
-
-    }).catch(function(err){
-
-        return fetch( urlTradeCenterMainWindows );
-
-    }).then(function(response){
-
-        return putGeometryCache( urlTradeCenterMainWindows, response ); // returns json.
-
-    }).then(function(json){
-
-        return loadTradeCenterAsset( json );
-
-    }).then(function( mesh ){
-        mesh.name = "trade center main windows";
-
-        var url = matcapsFolder + "ANGMAP11.jpg";
-        caches.match( url ).then(function(response){
+        caches.match( urlTradeCenterMainWindows ).then(function(response){
 
             if ( !response ) 
                 throw response;
@@ -210,42 +189,68 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         }).catch(function(err){
 
-        //  We use cors origin mode to avoid
-        //  texture tainted canvases, images.
-            return fetch( url, {
-                mode: "cors",
-                method: "GET",
-            });
+            return fetch( urlTradeCenterMainWindows );
 
         }).then(function(response){
 
-            return putTextureCache( url, response ); // returns blob.
+            return putGeometryCache( urlTradeCenterMainWindows, response ); // returns json.
 
-        }).then(function(blob){
+        }).then(function(json){
 
-            var img = new Image();
-            img.crossOrigin = "anonymous";
+            return loadTradeCenterAsset( json );
 
-            $(img).on("load", function(){
-                matcapMaterial(mesh, img, 0);
+        }).then(function( mesh ){
+            mesh.name = "trade center main windows";
+
+            var url = matcapsFolder + "ANGMAP11.jpg";
+            caches.match( url ).then(function(response){
+
+                if ( !response ) 
+                    throw response;
+                else
+                    return response;
+
+            }).catch(function(err){
+
+            //  We use cors origin mode to avoid
+            //  texture tainted canvases, images.
+                return fetch( url, {
+                    mode: "cors",
+                    method: "GET",
+                });
+
+            }).then(function(response){
+
+                return putTextureCache( url, response ); // returns blob.
+
+            }).then(function(blob){
+
+                var img = new Image();
+                img.crossOrigin = "anonymous";
+
+                $(img).on("load", function(){
+                    matcapMaterial(mesh, img, 0);
+                });
+
+            //  Get dataURL from blob.
+
+                var reader = new FileReader();
+                reader.onload = function() {
+                    img.src = reader.result;
+                };
+
+                reader.readAsDataURL(blob);
+
             });
 
-        //  Get dataURL from blob.
+            TradeCenterMain.add( mesh );
 
-            var reader = new FileReader();
-            reader.onload = function() {
-                img.src = reader.result;
-            };
+        })
 
-            reader.readAsDataURL(blob);
-
-        });
-
-        TradeCenterMain.add( mesh );
-
+    ]).then(function(){
+        scene.add( TradeCenterMain );
+        if (window.bootbox) bootbox.hideAll();
     });
-
-    scene.add( TradeCenterMain );
 
 //  ExternalSideTowers.js
 
