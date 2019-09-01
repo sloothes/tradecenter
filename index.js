@@ -45,7 +45,7 @@
 
     scene = new THREE.Scene();
     scene.name = "DEFAULT SCENE";
-    scene.fog = new THREE.FogExp2(0xb1c8e8, 0.00075);
+    scene.fog = new THREE.FogExp2(0xb1c8e8, 0.0005);
     camera = new FpsCamera(50, 1, 10000);
 
     sceneBackground([
