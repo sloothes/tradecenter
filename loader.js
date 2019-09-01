@@ -1140,7 +1140,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
         cameraControls.rigidObjects.push( mesh );
         TradeCenterAssets["left_cabine"] = mesh;
 
-        scene.add( mesh ); // important!
+        //  scene.add( mesh );
 
         return caches.match( elevatorOctreeUrl ).then(function(response){
 
@@ -1234,7 +1234,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
         cameraControls.rigidObjects.push( mesh );
         TradeCenterAssets["right_cabine"] = mesh;
 
-        scene.add( mesh ); // important!
+        //  scene.add( mesh );
 
         return caches.match( elevatorOctreeUrl ).then(function(response){
 
