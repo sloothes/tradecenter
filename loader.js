@@ -1147,7 +1147,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         scene.add( TradeCenterAssets["left_cabine"] ); // important!
 
-        return caches.match( elevatorOctreeUrl ).then(function(response){
+        caches.match( elevatorOctreeUrl ).then(function(response){
 
             if ( !response ) 
                 throw response;
@@ -1225,11 +1225,9 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 $updates = $("input[type=hidden].update");
             };
 
-        //  scene.add(elevator);
-            
-            return elevator; // important!
-
         });
+        
+        return mesh;
 
     }).then( function( mesh ){
 
@@ -1241,7 +1239,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         scene.add( TradeCenterAssets["right_cabine"] ); // important!
 
-        return caches.match( elevatorOctreeUrl ).then(function(response){
+        caches.match( elevatorOctreeUrl ).then(function(response){
 
             if ( !response ) 
                 throw response;
@@ -1308,10 +1306,6 @@ localPlayer.controller.maxSlopeGradient = 0.001;
                 $(elevatorSelector).removeClass("update");
                 $updates = $("input[type=hidden].update");
             };
-
-        //  scene.add(elevator);
-
-            return elevator; // important!
 
         });
 
