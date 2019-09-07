@@ -47,6 +47,7 @@
     scene.name = "DEFAULT SCENE";
     scene.fog = new THREE.FogExp2(0xb1c8e8, 0.0005);
     camera = new FpsCamera(50, 1, 10000);
+
 /*
     sceneBackground([
         "https://i.imgur.com/v6bjQLb.jpg", // "posx.jpg",
