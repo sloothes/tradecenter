@@ -58,12 +58,12 @@
     ]);
 */
     sceneBackground([
-        "./skybox/posx.jpg", // "posx.jpg",
-        "./skybox/negx.jpg", // "negx.jpg", 
-        "./skybox/posy.jpg", // "posy.jpg", 
-        "./skybox/negy.jpg", // "negy.jpg", 
-        "./skybox/posz.jpg", // "posz.jpg", 
-        "./skybox/negz.jpg", // "negz.jpg"
+        "/tradecenter/skybox/posx.jpg", // "posx.jpg",
+        "/tradecenter/skybox/negx.jpg", // "negx.jpg", 
+        "/tradecenter/skybox/posy.jpg", // "posy.jpg", 
+        "/tradecenter/skybox/negy.jpg", // "negy.jpg", 
+        "/tradecenter/skybox/posz.jpg", // "posz.jpg", 
+        "/tradecenter/skybox/negz.jpg", // "negz.jpg"
     ]);
 
 
@@ -121,7 +121,7 @@
     renderer.gammaOutput = true;
 
 //  Skydome.
-    (function(){
+    function(){
         var loader = new THREE.TextureLoader();
         skydomeGmt = new THREE.SphereGeometry( 2000, 64, 32 );
         skydomeTxr = loader.load( "/tradecenter/textures/skydome-home.jpg" );
@@ -133,7 +133,7 @@
         skydome.scale.y = 0.5;
         skydome.name = "SKYDOME";
         scene.add(skydome);
-    })();
+    }
 
 //  Water.
     (function(){
