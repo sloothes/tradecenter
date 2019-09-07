@@ -119,9 +119,9 @@
 
     renderer.gammaInput = true;
     renderer.gammaOutput = true;
-
+/*
 //  Skydome.
-    function(){
+    (function(){
         var loader = new THREE.TextureLoader();
         skydomeGmt = new THREE.SphereGeometry( 2000, 64, 32 );
         skydomeTxr = loader.load( "/tradecenter/textures/skydome-home.jpg" );
@@ -133,8 +133,8 @@
         skydome.scale.y = 0.5;
         skydome.name = "SKYDOME";
         scene.add(skydome);
-    }
-
+    })();
+*/
 //  Water.
     (function(){
         var waterNormals = loadTexture("/tradecenter/textures/waternormals.jpg");
