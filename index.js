@@ -48,7 +48,6 @@
     scene.fog = new THREE.FogExp2(0xb1c8e8, 0.0005);
     camera = new FpsCamera(50, 1, 10000);
 
-/*
     sceneBackground([
         "https://i.imgur.com/v6bjQLb.jpg", // "posx.jpg",
         "https://i.imgur.com/lwrlr6P.jpg", // "negx.jpg", 
@@ -57,7 +56,7 @@
         "https://i.imgur.com/x9q8z0K.jpg", // "posz.jpg", 
         "https://i.imgur.com/HYcK7Ii.jpg", // "negz.jpg"
     ]);
-*/
+/*
     sceneBackground([
         "/tradecenter/skybox/posx.jpg", // "posx.jpg",
         "/tradecenter/skybox/negx.jpg", // "negx.jpg", 
@@ -66,6 +65,7 @@
         "/tradecenter/skybox/posz.jpg", // "posz.jpg", 
         "/tradecenter/skybox/negz.jpg", // "negz.jpg"
     ]);
+*/
 
 
     camera.position.set(0, 20, 100);
