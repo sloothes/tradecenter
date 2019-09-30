@@ -1353,6 +1353,7 @@ localPlayer.controller.maxSlopeGradient = 0.001;
 
         for (var i=0; i < object.materials.length; i++){
             object.materials[i].side = 2; // DoubleSide;
+			object.materials[i].alphaTest = 0.5 // important!
         }
 
         var material = new THREE.MeshFaceMaterial( object.materials );
