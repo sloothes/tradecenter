@@ -37,8 +37,8 @@
 
     keyInputControls.On();
     cameraControls.offset.y = 20;
-    cameraControls.setLatLon(-5, 270);
-    localPlayer.controller.center.x = -380;
+    cameraControls.setLatLon(-16.218, 6.129);
+    localPlayer.controller.center.x = 68;
     cameraControls.radius = cameraControls.minRadius;
     if ( isMobile ) cameraControls.maxRadius = cameraControls.minRadius;
 
